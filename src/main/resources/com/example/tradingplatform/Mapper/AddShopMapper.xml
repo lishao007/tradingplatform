@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.tradingplatform.Mapper.AddShopMapper">
+    <resultMap id="shopMap" type="com.example.tradingplatform.pojo.Shop">
+        <id property="productId" column="product_id"/>
+        <result property="productName" column="product_name"/>
+        <result property="productPrice" column="product_price"/>
+        <result property="productPhoto" column="product_photo"/>
+        <result property="productCount" column="product_count"/>
+        <result property="productDetial" column="product_detial"/>
+    </resultMap>
+    <resultMap id="shopMap1" type="com.example.tradingplatform.pojo.Shop" extends="shopMap">
+        <collection property="user" ofType="com.example.tradingplatform.pojo.User" resultMap="com.example.tradingplatform.Mapper.UserMapper.userMap">
+        </collection>
+    </resultMap>
+
+    <insert id="addProductByUserId" useGeneratedKeys="true" keyProperty="shop.productId" parameterType="com.example.tradingplatform.pojo.Shop">
+        insert into shop(product_name,product_price,product_photo,product_detial,product_count,user_id) values
+        (#{shop.productName},#{shop.productPrice},#{shop.productPhoto},#{shop.productDetial},#{shop.productCount},#{userId})
+    </insert>
+
+    <select id="selectProductByUserIdAndName" resultMap="shopMap">
+        select * from shop
+        where shop.product_name = #{productName} and shop.user_id = #{userId}
+    </select>
+
+    <update id="updateProductByUserIdAndName" parameterType="com.example.tradingplatform.pojo.Shop">
+        update shop
+        set shop.product_count = shop.product_count + #{productCount}
+        where shop.product_name = #{productName} and shop.user_id = #{userId}
+    </update>
+</mapper>

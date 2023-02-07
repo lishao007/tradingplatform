@@ -1,0 +1,20 @@
+#修改端口号默认是8080
+server:
+  port: 8888
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/tradingplatform?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 1234abcs
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER #swagger相关配置
+
+#mybatis-plus相关配置
+mybatis-plus:
+  mapper-locations: classpath:Mapper/*.xml #扫描Mapper下的所有xml文件
+  configuration:
+    map-underscore-to-camel-case: true #将带有下划线的表字段映射为驼峰格式的实体类属性
+
