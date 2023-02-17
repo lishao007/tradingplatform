@@ -20,19 +20,22 @@ create Table `shop`(
                        `product_photo`  mediumtext    not null comment '商品图片',
                        `product_detial` varchar(255)  not null comment '商品描述',
                        `product_count`  int                    comment '商品数量',
+                       `product_status` tinyint(1)             comment '商品状态',
                        `user_id`        varchar(32)   not null,
                        primary key (`product_id`),
                        foreign key (`user_id`) references `user` (`id`) on delete cascade
 );
 
 create Table `order`(
-                      `product_id`    int           not null comment '商品id' auto_increment,
-                      `product_name`  varchar(20)   not null comment '商品名称',
-                      `product_price` decimal(6, 2) not null comment '商品价格',
-                      `product_photo` mediumtext    not null comment '商品图片',
-                      `create_time`   datetime      not null comment '下单时间',
-                      `product_count` int                    comment '订单数量',
-                      `user_id`       varchar(32)   not null,
+                      `product_id`     int           not null comment '商品id' auto_increment,
+                      `product_name`   varchar(20)   not null comment '商品名称',
+                      `product_price`  decimal(6, 2) not null comment '商品价格',
+                      `product_photo`  mediumtext    not null comment '商品图片',
+                      `create_time`    datetime      not null comment '下单时间',
+                      `product_count`  int                    comment '订单数量',
+                      `product_status` tinyint(1)             comment '订单状态',
+                      `id`             varchar(32)   not null comment '卖家id',
+                      `user_id`        varchar(32)   not null,
                       primary key (`product_id`),
                       foreign key (`user_id`) references `user` (`id`) on delete cascade
 );

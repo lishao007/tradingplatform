@@ -2,17 +2,18 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.tradingplatform.Mapper.ShoppingMapper">
-    <resultMap id="shopMap" type="com.example.tradingplatform.pojo.Shop">
+<mapper namespace="com.example.tradingplatform.Mapper.OrderDetialMapper">
+    <resultMap id="orderMap" type="com.example.tradingplatform.pojo.Order">
         <id property="productId" column="product_id"/>
         <result property="productName" column="product_name"/>
         <result property="productPrice" column="product_price"/>
         <result property="productPhoto" column="product_photo"/>
         <result property="productCount" column="product_count"/>
-        <result property="productDetial" column="product_detial"/>
+        <result property="createTime" column="create_time"/>
         <result property="productStatus" column="product_status"/>
+        <result property="id" column="id"/>
     </resultMap>
-    <resultMap id="shopMap1" type="com.example.tradingplatform.pojo.Shop" extends="shopMap">
+    <resultMap id="orderMap1" type="com.example.tradingplatform.pojo.Order" extends="orderMap">
         <association property="user" javaType="com.example.tradingplatform.pojo.User">
             <id property="id" column="id"/>
             <result property="userName" column="user_name"/>
@@ -23,6 +24,4 @@
             <result property="userAge" column="user_age"/>
         </association>
     </resultMap>
-
-
 </mapper>

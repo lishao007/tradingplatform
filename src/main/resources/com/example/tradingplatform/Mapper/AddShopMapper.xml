@@ -10,15 +10,23 @@
         <result property="productPhoto" column="product_photo"/>
         <result property="productCount" column="product_count"/>
         <result property="productDetial" column="product_detial"/>
+        <result property="productStatus" column="product_status"/>
     </resultMap>
     <resultMap id="shopMap1" type="com.example.tradingplatform.pojo.Shop" extends="shopMap">
-        <collection property="user" ofType="com.example.tradingplatform.pojo.User" resultMap="com.example.tradingplatform.Mapper.UserMapper.userMap">
-        </collection>
+        <association property="user" javaType="com.example.tradingplatform.pojo.User">
+            <id property="id" column="id"/>
+            <result property="userName" column="user_name"/>
+            <result property="userNumber" column="user_number"/>
+            <result property="userPassword" column="user_password"/>
+            <result property="userPhoto" column="user_photo"/>
+            <result property="userSex" column="user_sex"/>
+            <result property="userAge" column="user_age"/>
+        </association>
     </resultMap>
 
     <insert id="addProductByUserId" useGeneratedKeys="true" keyProperty="shop.productId" parameterType="com.example.tradingplatform.pojo.Shop">
-        insert into shop(product_name,product_price,product_photo,product_detial,product_count,user_id) values
-        (#{shop.productName},#{shop.productPrice},#{shop.productPhoto},#{shop.productDetial},#{shop.productCount},#{userId})
+        insert into shop(product_name,product_price,product_photo,product_detial,product_count,user_id,product_status) values
+        (#{shop.productName},#{shop.productPrice},#{shop.productPhoto},#{shop.productDetial},#{shop.productCount},#{userId},#{shop.productStatus})
     </insert>
 
     <select id="selectProductByUserIdAndName" resultMap="shopMap">

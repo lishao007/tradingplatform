@@ -8,5 +8,5 @@ public interface ShopDetialService {
 
     void deleteShopByProductId(Integer productId);
 
-    void updateShopByProductId(Integer productId, Integer number);
+    void updateShopByProductIdAndUserId(Integer productId, Integer number, String userId);
 }

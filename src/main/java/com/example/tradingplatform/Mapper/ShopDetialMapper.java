@@ -8,9 +8,10 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository
 public interface ShopDetialMapper{
-    void updateShopByUserId(@Param("productId") Integer productId, @Param("number") int number);
 
     void deleteShopByUserId(Integer productId);
 
     Shop selectByProductId(Integer productId);
+
+    void updateShopByProductIdAndUserId(@Param("productId") Integer productId, @Param("number") Integer number, @Param("userId") String userId);
 }

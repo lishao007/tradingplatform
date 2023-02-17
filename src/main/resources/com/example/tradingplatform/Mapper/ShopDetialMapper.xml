@@ -10,20 +10,30 @@
         <result property="productPhoto" column="product_photo"/>
         <result property="productCount" column="product_count"/>
         <result property="productDetial" column="product_detial"/>
+        <result property="productStatus" column="product_status"/>
     </resultMap>
     <resultMap id="shopMap1" type="com.example.tradingplatform.pojo.Shop" extends="shopMap">
-        <collection property="user" ofType="com.example.tradingplatform.pojo.User" resultMap="com.example.tradingplatform.Mapper.UserMapper.userMap">
-        </collection>
+        <association property="user" javaType="com.example.tradingplatform.pojo.User">
+            <id property="id" column="id"/>
+            <result property="userName" column="user_name"/>
+            <result property="userNumber" column="user_number"/>
+            <result property="userPassword" column="user_password"/>
+            <result property="userPhoto" column="user_photo"/>
+            <result property="userSex" column="user_sex"/>
+            <result property="userAge" column="user_age"/>
+        </association>
     </resultMap>
 
-    <select id="selectByProductId" resultMap="shopMap">
-        select * from shop
-        where product_id = #{productId}
+    <select id="selectByProductId" resultMap="shopMap1">
+        select u.id,s.product_name,s.product_price,s.product_photo,s.product_count,s.product_detial from shop s
+        left join user u
+        on s.user_id = u.id
+        where s.product_id = #{productId}
     </select>
 
-    <update id="updateShopByUserId" parameterType="com.example.tradingplatform.pojo.Shop">
-        update `shop` s set s.product_count = s.product_count - #{number}
-        where s.product_id = #{productId}
+    <update id="updateShopByProductIdAndUserId" parameterType="com.example.tradingplatform.pojo.Shop">
+        update `shop` s set s.product_count = s.product_count - #{number}, s.product_status = 1
+        where s.product_id = #{productId} and s.user_id = #{userId}
     </update>
 
     <delete id="deleteShopByUserId">

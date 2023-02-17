@@ -24,7 +24,7 @@ public class RegistController {
 
     @PostMapping("/regist")
     @ApiOperation(httpMethod = "POST", value = "新用户注册")
-    public Resp<Void> regist(@RequestParam("userNumber") String userNumber, @RequestParam("userPassword") String userPassword){
+    public Resp<String> regist(@RequestParam("userNumber") String userNumber, @RequestParam("userPassword") String userPassword){
         User one = registService.selectOne(userNumber);
         if(StringUtils.isBlank(userPassword)){
             //密码为空
@@ -41,7 +41,7 @@ public class RegistController {
             user.setUserNumber(userNumber);
             user.setUserPassword(userPassword);
             registService.insert(user);
-            return Resp.ok("success");
+            return Resp.ok(strUUID);
         }
     }
 }

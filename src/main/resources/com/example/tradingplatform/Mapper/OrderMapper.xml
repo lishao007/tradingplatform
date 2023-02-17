@@ -10,31 +10,36 @@
         <result property="productPhoto" column="product_photo"/>
         <result property="productCount" column="product_count"/>
         <result property="createTime" column="create_time"/>
+        <result property="productStatus" column="product_status"/>
+        <result property="id" column="id"/>
     </resultMap>
     <resultMap id="orderMap1" type="com.example.tradingplatform.pojo.Order" extends="orderMap">
-        <collection property="user" ofType="com.example.tradingplatform.pojo.User" resultMap="com.example.tradingplatform.Mapper.UserMapper.userMap">
-        </collection>
+        <association property="user" javaType="com.example.tradingplatform.pojo.User">
+            <id property="id" column="id"/>
+            <result property="userName" column="user_name"/>
+            <result property="userNumber" column="user_number"/>
+            <result property="userPassword" column="user_password"/>
+            <result property="userPhoto" column="user_photo"/>
+            <result property="userSex" column="user_sex"/>
+            <result property="userAge" column="user_age"/>
+        </association>
     </resultMap>
 
     <insert id="addOrderByUserId" useGeneratedKeys="true" keyProperty="order.productId" parameterType="com.example.tradingplatform.pojo.Order">
-        insert into `order`(product_name,product_price,product_photo,product_count,create_time,user_id) values
-        (#{order.productName},#{order.productPrice},#{order.productPhoto},#{order.productCount},#{order.createTime},#{userId})
+        insert into `order`(product_name,product_price,product_photo,product_count,create_time,user_id,product_status,id) values
+        (#{order.productName},#{order.productPrice},#{order.productPhoto},#{order.productCount},#{order.createTime},#{userId},#{order.productStatus},#{order.id})
     </insert>
 
-    <select id="selectOrderByUserId" resultMap="orderMap">
+    <select id="selectOrderByUserIdAndProductName" resultMap="orderMap">
         select *
         from `order` o
-        where o.user_id = #{userId}
+        where o.user_id = #{userId} and o.product_name = #{productName} and o.product_status = 0
     </select>
 
-    <update id="updateOrderByUserId">
+    <update id="updateOrderByUserIdAndProductName">
         update `order` o
         set o.product_count = o.product_count + #{number}
-        where o.user_id = #{userId}
+        where o.user_id = #{userId} and o.product_name = #{productName}
     </update>
 
-    <delete id="deleteOrderByUserId">
-        delete from `order` o
-        where o.product_id = #{productId}
-    </delete>
 </mapper>

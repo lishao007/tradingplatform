@@ -33,10 +33,10 @@ public class ShopDetialController {
         Shop one = shopDetialService.selectByProductId(productId);
         Shop shop = new Shop();
         shop.setProductName(one.getProductName());
-        shop.setProductDetial(one.getProductDetial());
         shop.setProductPrice(one.getProductPrice());
         shop.setProductPhoto(one.getProductPhoto());
-        System.out.println(JSON.toJSON(shop));
+        shop.setProductDetial(one.getProductDetial());
+        shop.setProductCount(one.getProductCount());
         return Resp.ok(JSON.toJSON(shop));
     }
 
@@ -45,22 +45,23 @@ public class ShopDetialController {
     public Resp<Void> placeOrder(@PathVariable("userId") String userId, @PathVariable("productId") Integer productId, @RequestParam("number") Integer number){
         //获取商品信息
         Shop one = shopDetialService.selectByProductId(productId);
+        String productName = one.getProductName();
         int count = one.getProductCount();
         //判断用户是否是第一次下单
-        Order One = orderService.selectOrderByUserId(userId);
+        Order One = orderService.selectOrderByUserIdAndProductName(userId,productName);
         if(null != One){
             //用户不是第一次下单
             //判断当前商品数量
             if(number <= count){
                 //更新订单信息(只更改订单数量即可)
-                orderService.updateOrderByUserId(userId,number);
+                orderService.updateOrderByUserIdAndProductName(userId,productName,number);
                 if(number == count){
                     //删除商品信息
                     shopDetialService.deleteShopByProductId(productId);
                     return Resp.ok("success");
                 }else{
                     //更新商品信息
-                    shopDetialService.updateShopByProductId(productId,number);
+                    shopDetialService.updateShopByProductIdAndUserId(productId,number,one.getUser().getId());
                     return Resp.ok("success");
                 }
             }else{
@@ -77,6 +78,8 @@ public class ShopDetialController {
                 order.setProductPhoto(one.getProductPhoto());
                 order.setProductCount(number);
                 order.setCreateTime(LocalDateTime.now());
+                order.setId(one.getUser().getId());
+                order.setProductStatus(false);//订单待支付
                 //添加商品到用户订单列表
                 int i = orderService.addOrderByUserId(userId,order);
                 if(i != 0){
@@ -86,7 +89,7 @@ public class ShopDetialController {
                         return Resp.ok("success");
                     }else{
                         //更新已下单的商品信息
-                        shopDetialService.updateShopByProductId(productId,number);
+                        shopDetialService.updateShopByProductIdAndUserId(productId,number,one.getUser().getId());
                         return Resp.ok("success");
                     }
                 }else{

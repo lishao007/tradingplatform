@@ -4,8 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.tradingplatform.Controller.ShopDetialController;
 import com.example.tradingplatform.Mapper.*;
 import com.example.tradingplatform.Service.Impl.AddShopServicelmpl;
+import com.example.tradingplatform.Service.Impl.OrderServiceImpl;
 import com.example.tradingplatform.Service.Impl.RegistServiceImpl;
 import com.example.tradingplatform.exception.AppExceptionCodeMsg;
 import com.example.tradingplatform.pojo.Order;
@@ -26,12 +28,13 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @SpringBootTest
 class TradingplatformApplicationTests {
 	@Autowired
-	private AddShopServicelmpl addShopService;
+	private OrderServiceImpl orderService;
 	@Test
 	void contextLoads(){
 //		String number = "1648782294";
@@ -120,5 +123,19 @@ class TradingplatformApplicationTests {
 //		}
 //		one.setProductPhoto(fileName);
 //		addShopService.addProductByUserId("ebdd515d83334ccf8851dfcb44790631",one);
+//		Shop shop = new Shop();
+//		shop.setProductName("测试");
+//		shop.setProductPhoto("aaaa");
+//		shop.setProductCount(10);
+//		shop.setProductStatus(false);
+//		shop.setProductDetial("测试");
+//		shop.setProductPrice(BigDecimal.valueOf(10));
+//		addShopMapper.addProductByUserId("fc2e26664f43499ab868d27c77a521a6",shop);
+//		System.out.println("1");
+//		shopDetialController.placeOrder("489a3d9d9e0d40f7b3cd56074745de66",2,5);
+
+//		List<Order> listOrder = orderService.selectList(new QueryWrapper<Order>()
+//				.eq("user_id","489a3d9d9e0d40f7b3cd56074745de66"));
+//		System.out.println(listOrder);
 	}
 }

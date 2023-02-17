@@ -22,6 +22,22 @@ public class UserController {
     @Autowired
     private UserServiceImpl userService;
 
+    //根据用户id,得到用户的所有详细信息（名字，头像......）User
+    @GetMapping("/showUser/{userId}")
+    @ApiOperation(httpMethod = "GET",value = "展示用户详情")
+    public Resp<User> showUser(@PathVariable("userId") String userId){
+        User one = userService.selectUserById(userId);
+        User user = new User();
+        user.setUserName(one.getUserName());
+        user.setUserPhoto(one.getUserPhoto());
+        user.setUserNumber(one.getUserNumber());
+        user.setUserPassword(one.getUserPassword());
+        user.setUserSex(one.getUserSex());
+        user.setUserAge(one.getUserAge());
+        return Resp.ok(user);
+    }
+
+
     @PostMapping("/alterUserById/{userId}")
     @ApiOperation(httpMethod = "POST",value = "修改完善用户信息")
     public Resp<Void> alterUserById(@PathVariable("userId") String userId, @RequestParam("photo") MultipartFile photo, @RequestParam("userName") String userName, @RequestParam("userSex") String userSex, @RequestParam("userAge") Integer userAge){

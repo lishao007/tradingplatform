@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName(value = "order")
+@TableName(value = "`order`")
 public class Order implements Serializable {
     @ApiModelProperty(value = "商品id")
     @TableId(type = IdType.AUTO)
@@ -29,6 +29,10 @@ public class Order implements Serializable {
     private LocalDateTime createTime;
     @ApiModelProperty(value = "订单数量")
     private int productCount;
+    @ApiModelProperty(value = "订单状态,待支付为false,已支付为true")
+    private boolean productStatus;
+    @ApiModelProperty(value = "卖家id")
+    private String id;
     @TableField(exist = false)
     private User user;
 }

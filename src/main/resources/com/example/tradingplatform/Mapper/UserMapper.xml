@@ -14,10 +14,25 @@
     </resultMap>
     <resultMap id="userMap1" type="com.example.tradingplatform.pojo.User" extends="userMap">
         <collection property="shopList" ofType="com.example.tradingplatform.pojo.Shop" resultMap="com.example.tradingplatform.Mapper.shopMap">
+            <id property="productId" column="product_id"/>
+            <result property="productName" column="product_name"/>
+            <result property="productPrice" column="product_price"/>
+            <result property="productPhoto" column="product_photo"/>
+            <result property="productCount" column="product_count"/>
+            <result property="productDetial" column="product_detial"/>
+            <result property="productStatus" column="product_status"/>
         </collection>
     </resultMap>
     <resultMap id="userMap2" type="com.example.tradingplatform.pojo.User" extends="userMap">
         <collection property="orderList" ofType="com.example.tradingplatform.pojo.Order" resultMap="com.example.tradingplatform.Mapper.orderMap">
+            <id property="productId" column="product_id"/>
+            <result property="productName" column="product_name"/>
+            <result property="productPrice" column="product_price"/>
+            <result property="productPhoto" column="product_photo"/>
+            <result property="productCount" column="product_count"/>
+            <result property="createTime" column="create_time"/>
+            <result property="productStatus" column="product_status"/>
+            <result property="id" column="id"/>
         </collection>
     </resultMap>
 

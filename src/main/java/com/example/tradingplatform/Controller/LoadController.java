@@ -23,13 +23,13 @@ public class LoadController {
 
     @PostMapping("/login")
     @ApiOperation(httpMethod = "POST", value = "验证用户账号密码信息")
-    public Resp<Void> load(@RequestParam("userNumber") String userNumber, @RequestParam("userPassword") String userPassword){
+    public Resp<String> load(@RequestParam("userNumber") String userNumber, @RequestParam("userPassword") String userPassword){
         User one = loadService.getOne(new QueryWrapper<User>()
                 .eq("user_number",userNumber)
                 .eq("user_password",userPassword)
         );
         if(null != one){
-            return Resp.ok("success");
+            return Resp.ok(one.getId());
         }else{
             return Resp.fail(AppExceptionCodeMsg.USER_NOT_EXISTS);
         }

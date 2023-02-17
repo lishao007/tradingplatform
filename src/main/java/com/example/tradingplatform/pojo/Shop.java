@@ -30,6 +30,8 @@ public class Shop implements Serializable {
     private String productDetial;
     @ApiModelProperty(value = "商品数量")
     private int productCount;
+    @ApiModelProperty(value = "商品状态,售出过为true,未售出为false")
+    private boolean productStatus;
     @TableField(exist = false)
     private User user;
 }

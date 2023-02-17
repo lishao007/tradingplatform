@@ -12,14 +12,15 @@ public class ShopDetialServiceImpl implements ShopDetialService {
     @Autowired
     private ShopDetialMapper shopDetialMapper;
 
-    @Override
-    public void updateShopByProductId(Integer productId, Integer number) {
-        shopDetialMapper.updateShopByUserId(productId,number);
-    }
 
     @Override
     public void deleteShopByProductId(Integer productId) {
         shopDetialMapper.deleteShopByUserId(productId);
+    }
+
+    @Override
+    public void updateShopByProductIdAndUserId(Integer productId, Integer number, String userId) {
+        shopDetialMapper.updateShopByProductIdAndUserId(productId,number,userId);
     }
 
     @Override
