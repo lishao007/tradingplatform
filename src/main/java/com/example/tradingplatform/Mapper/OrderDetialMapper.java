@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository
 public interface OrderDetialMapper extends BaseMapper<Order> {
+    void updateOrderByProductId(Integer productId);
 }

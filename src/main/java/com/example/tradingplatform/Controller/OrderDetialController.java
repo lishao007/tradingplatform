@@ -29,8 +29,8 @@ public class OrderDetialController {
 
     @GetMapping("/pay")
     @ApiOperation(httpMethod = "GET", value = "用户支付订单")
-    public Resp<Void> pay(){
-
+    public Resp<Void> pay(@RequestParam("productId") Integer productId){
+        orderDetialService.updateOrderByProductId(productId);
         return Resp.ok();
     }
 }

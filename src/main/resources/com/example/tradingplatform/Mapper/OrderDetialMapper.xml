@@ -24,4 +24,10 @@
             <result property="userAge" column="user_age"/>
         </association>
     </resultMap>
+
+    <update id="updateOrderByProductId">
+        update order o
+        set o.product_status = true
+        where o.product_id = #{productId}
+    </update>
 </mapper>

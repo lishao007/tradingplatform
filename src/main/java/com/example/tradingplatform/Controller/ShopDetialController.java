@@ -37,6 +37,7 @@ public class ShopDetialController {
         shop.setProductPhoto(one.getProductPhoto());
         shop.setProductDetial(one.getProductDetial());
         shop.setProductCount(one.getProductCount());
+        shop.setProductStatus(one.isProductStatus());
         return Resp.ok(JSON.toJSON(shop));
     }
 

@@ -29,7 +29,6 @@ public class ShoppingController {
     @PostMapping("/fuzzySearch")
     @ApiOperation(httpMethod = "POST", value = "根据用户搜索条件查询符合条件的商品")
     public Resp<List<Shop>> fuzzySearch(@RequestBody String str){
-        System.out.println(str);
         List<Shop> shopList = shoppingService.selectList(new QueryWrapper<Shop>().
                 like("product_name",str));
         return Resp.ok(shopList);

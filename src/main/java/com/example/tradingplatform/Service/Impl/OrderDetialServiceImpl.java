@@ -12,4 +12,9 @@ public class OrderDetialServiceImpl extends ServiceImpl<OrderDetialMapper,Order>
     public Order showOrderByProductId(Integer productId) {
         return baseMapper.selectById(productId);
     }
+
+    @Override
+    public void updateOrderByProductId(Integer productId) {
+        baseMapper.updateOrderByProductId(productId);
+    }
 }

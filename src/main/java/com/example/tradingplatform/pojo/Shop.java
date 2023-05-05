@@ -34,4 +34,5 @@ public class Shop implements Serializable {
     private boolean productStatus;
     @TableField(exist = false)
     private User user;
+
 }
