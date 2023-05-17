@@ -26,10 +26,7 @@
 
     <update id="alterProductById" parameterType="com.example.tradingplatform.pojo.Shop">
         update shop s
-        set s.product_name   = #{shop.productName},
-            s.product_price  = #{shop.productPrice},
-            s.product_count  = #{shop.productCount},
-            s.product_detial = #{shop.productDetial}
+        set s.product_name = #{shop.productName}, s.product_price = #{shop.productPrice}, s.product_photo = #{shop.productPhoto}, s.product_count = #{shop.productCount}, s.product_detial = #{shop.productDetial}
         where s.product_id = #{productId}
     </update>
 </mapper>

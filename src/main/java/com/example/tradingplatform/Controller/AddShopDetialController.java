@@ -22,16 +22,28 @@ public class AddShopDetialController {
     @Autowired
     private AddShopDetialServiceImpl addShopDetialService;
 
-    //卖家根据商品Id,修改商品信息(禁止修改图片)
+    //卖家根据商品Id,修改商品信息
     @PostMapping("/alterProductById")
     @ApiOperation(httpMethod = "POST", value = "添加商品页修改商品信息")
-    public Resp<Void> alterProductById(@RequestParam("productId") Integer productId, @RequestBody Shop shop) {
-        Shop one = new Shop();
-        one.setProductName(shop.getProductName());
-        one.setProductPrice(shop.getProductPrice());
-        one.setProductDetial(shop.getProductDetial());
-        one.setProductCount(shop.getProductCount());
-        addShopDetialService.alterProductById(productId, one);
+    public Resp<Void> alterProductById(@RequestParam("productId") Integer productId, @RequestParam("productName") String productName, @RequestParam("photo") MultipartFile photo, @RequestParam("productPrice")BigDecimal productPrice, @RequestParam("productDetial") String productDetial, @RequestParam("productCount") Integer productCount){
+        String productPhoto = null;
+        Shop shop = new Shop();
+        shop.setProductName(productName);
+        shop.setProductPrice(productPrice);
+        shop.setProductDetial(productDetial);
+        shop.setProductCount(productCount);
+        if(!photo.isEmpty()){
+            String originalFileName = photo.getOriginalFilename();
+            String suffixName = originalFileName.substring(originalFileName.lastIndexOf('.'));
+            productPhoto = UUID.randomUUID().toString()+suffixName;
+            try{
+                photo.transferTo(new File("C:\\Users\\ZC\\Pictures\\联想安卓照片//"+productPhoto));
+            }catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        shop.setProductPhoto(productPhoto);
+        addShopDetialService.alterProductById(productId,shop);
         return Resp.ok("success");
     }
 }
