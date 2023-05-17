@@ -10,7 +10,7 @@
         <result property="productPhoto" column="product_photo"/>
         <result property="productCount" column="product_count"/>
         <result property="createTime" column="create_time"/>
-        <result property="productStatus" column="product_status"/>
+        <result property="productStatus" column="product_status" typeHandler="org.apache.ibatis.type.BooleanTypeHandler"/>
         <result property="id" column="id"/>
     </resultMap>
     <resultMap id="orderMap1" type="com.example.tradingplatform.pojo.Order" extends="orderMap">
